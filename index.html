@@ -8,11 +8,16 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
 <style>
 body { margin: 0; padding: 0; }
+#buttons { position: absolute; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 </style>
 </head>
 <body>
 <div id="map"></div>
+<!-- <div id="buttons">
+  <button id="start" onclick="frame()">Start</button>
+  <button id="stop">Stop</button>
+</div> -->
 
 <script src="http://www.samfader.com/trailpreview/data/brightangel.js"></script>
 <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
@@ -23,12 +28,13 @@ body { margin: 0; padding: 0; }
 	mapboxgl.accessToken = 'pk.eyJ1Ijoic2FtZiIsImEiOiJjaWZ3bGhtdjgzMnN1dWdrcnEwZTVieG91In0.DkCY-91coDahKvpH7Z26dw';
     var map = new mapboxgl.Map({
         container: 'map',
-        zoom: 11.53,
-        center: [-112.0829, 36.0975],
-        pitch: 65,
-        bearing: -180,
-        style: 'mapbox://styles/mapbox-map-design/ckhqrbxlc1awj19svtb92m0bd',
-        interactive: false
+        zoom: 14.84,
+        center: [-112.142163, 36.064383],
+        pitch: 37,
+        bearing: 30.2,
+        hash: true,
+        style: 'mapbox://styles/samf/ckmv0i9tq02gm17peki1o40sg',
+        interactive: true
     });
 
     // `routes` comes from https://docs.mapbox.com/mapbox-gl-js/assets/routes.js,
@@ -41,6 +47,8 @@ body { margin: 0; padding: 0; }
     // ]
     // this is the path the camera will look at
     var targetRoute = routes.target;
+
+    console.log("target route is ", targetRoute);
     // this is the path the camera will move along
     var cameraRoute = routes.camera;
 
@@ -90,8 +98,8 @@ body { margin: 0; padding: 0; }
 
     // wait for the terrain and sky to load before starting animation
     map.on('load', function () {
-        var animationDuration = 80000;
-        var cameraAltitude = 4000;
+        var animationDuration = 100000;
+        var cameraAltitude = 3000;
         // get the overall distance of each route so we can interpolate along them
         var routeDistance = turf.lineDistance(turf.lineString(targetRoute));
         var cameraRouteDistance = turf.lineDistance(
@@ -108,10 +116,10 @@ body { margin: 0; padding: 0; }
             // phase is normalized between 0 and 1
             // when the animation is finished, reset start to loop the animation
             if (phase > 1) {
-                // wait 1.5 seconds before looping
+                // wait 3 seconds before looping
                 setTimeout(function () {
                     start = 0.0;
-                }, 1500);
+                }, 3000);
             }
 
             // use the phase to get a point that is the appropriate distance along the route
