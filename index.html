@@ -28,12 +28,12 @@ body { margin: 0; padding: 0; }
 	mapboxgl.accessToken = 'pk.eyJ1Ijoic2FtZiIsImEiOiJjaWZ3bGhtdjgzMnN1dWdrcnEwZTVieG91In0.DkCY-91coDahKvpH7Z26dw';
     var map = new mapboxgl.Map({
         container: 'map',
-        zoom: 14.84,
-        center: [-112.142163, 36.064383],
-        pitch: 37,
-        bearing: 30.2,
+        zoom: 12.1,
+        center: [-121.91704, 46.79315],
+        pitch: 83,
+        bearing: 55.61,
         hash: true,
-        style: 'mapbox://styles/samf/ckmv0i9tq02gm17peki1o40sg',
+        style: 'mapbox://styles/samf/ckmv0i9tq02gm17peki1o40sg?fresh=true',
         interactive: true
     });
 
@@ -98,7 +98,7 @@ body { margin: 0; padding: 0; }
 
     // wait for the terrain and sky to load before starting animation
     map.on('load', function () {
-        var animationDuration = 100000;
+        var animationDuration = 40000;
         var cameraAltitude = 3000;
         // get the overall distance of each route so we can interpolate along them
         var routeDistance = turf.lineDistance(turf.lineString(targetRoute));
@@ -119,7 +119,7 @@ body { margin: 0; padding: 0; }
                 // wait 3 seconds before looping
                 setTimeout(function () {
                     start = 0.0;
-                }, 3000);
+                }, 10000);
             }
 
             // use the phase to get a point that is the appropriate distance along the route
